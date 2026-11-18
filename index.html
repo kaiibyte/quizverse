@@ -4,495 +4,533 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
-<meta name="shell-type" content="mobile_tab"/>
-
-<!-- QuizVerse favicon and PWA -->
-<link rel="icon" type="image/png" href="quizverse-logo.png"/>
-<link rel="apple-touch-icon" href="quizverse-logo.png"/>
-<link rel="manifest" href="manifest.json"/>
 <meta name="theme-color" content="#080b18"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="QuizVerse"/>
-
+<link rel="icon" type="image/png" href="quizverse-logo.png"/>
+<link rel="apple-touch-icon" href="quizverse-logo.png"/>
+<link rel="manifest" href="manifest.json"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
-
 <style>
-@layer base {
-html,body {
-width:100vw;
-margin:0;
-padding:0;
-background-color:#0f131f;
-color:#dfe2f3;
-}
-body {
-overscroll-behavior:none;
-font-family:'Plus Jakarta Sans',sans-serif;
-}
-.pb-safe {padding-bottom:env(safe-area-inset-bottom,0px);}
-.pt-safe {padding-top:env(safe-area-inset-top,0px);}
-main>:first-child {margin-top:0!important;}
-main>:last-child {margin-bottom:0!important;}
-}
-::-webkit-scrollbar {display:none;}
-body {min-height:max(884px,100dvh);}
+*{box-sizing:border-box}
+html,body{width:100%;margin:0;padding:0;background:#0f131f;color:#dfe2f3;font-family:'Plus Jakarta Sans',sans-serif}
+body{min-height:100vh;overscroll-behavior:none}
+::-webkit-scrollbar{display:none}
+button{cursor:pointer}
+.modal-backdrop{position:fixed;inset:0;background:#000b;z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.show{display:flex}
+.modal-card{width:100%;max-width:430px;max-height:90dvh;overflow-y:auto;background:#171b28;border:1px solid #343044;border-radius:24px;padding:22px;box-shadow:0 20px 80px #0009}
+.auth-input{width:100%;padding:14px 15px;background:#0f131f;border:1px solid #393749;border-radius:13px;color:#fff;outline:none;margin-top:7px}
+.auth-input:focus{border-color:#4cd7f6}
+.auth-label{display:block;margin-top:14px;color:#cbc3d7;font-size:12px;font-weight:700}
+.auth-btn{width:100%;padding:13px;border-radius:13px;font-weight:800;margin-top:14px}
+.primary-btn{background:linear-gradient(90deg,#a078ff,#4cd7f6);color:#0a0e1a}
+.secondary-btn{background:#262a37;color:#dfe2f3;border:1px solid #494454}
+.auth-message{font-size:13px;line-height:1.5;margin-top:13px;color:#4cd7f6;overflow-wrap:anywhere}
+.auth-error{color:#ffb4ab}
+.role-panel{display:none}
+.role-panel.visible{display:block}
 </style>
-
 <script>
-tailwind.config = {
-darkMode:"class",
-theme:{
-extend:{
+tailwind.config={darkMode:"class",theme:{extend:{
 colors:{
-"outline-variant":"#494454",
-"on-tertiary":"#002e6a",
-"on-primary":"#3c0091",
-"on-primary-fixed":"#23005c",
-"surface-container-low":"#171b28",
-"on-secondary":"#003640",
-"inverse-surface":"#dfe2f3",
-"background":"#0f131f",
-"on-primary-container":"#340080",
-"on-background":"#dfe2f3",
-"surface-container-highest":"#313442",
-"on-secondary-container":"#00424e",
-"on-tertiary-fixed":"#001a42",
-"on-primary-fixed-variant":"#5516be",
-"tertiary-fixed":"#d8e2ff",
-"surface-container":"#1b1f2c",
-"tertiary-fixed-dim":"#adc6ff",
-"tertiary":"#adc6ff",
-"outline":"#958ea0",
-"secondary-container":"#03b5d3",
-"error-container":"#93000a",
-"surface-variant":"#313442",
-"surface-container-high":"#262a37",
-"on-surface":"#dfe2f3",
-"on-error-container":"#ffdad6",
-"surface-container-lowest":"#0a0e1a",
-"surface":"#0f131f",
-"primary":"#d0bcff",
-"on-error":"#690005",
-"secondary-fixed":"#acedff",
-"on-secondary-fixed-variant":"#004e5c",
-"secondary":"#4cd7f6",
-"surface-tint":"#d0bcff",
-"error":"#ffb4ab",
-"tertiary-container":"#4d8eff",
-"on-secondary-fixed":"#001f26",
-"primary-fixed":"#e9ddff",
-"on-tertiary-container":"#00285d",
-"on-tertiary-fixed-variant":"#004395",
-"primary-fixed-dim":"#d0bcff",
-"inverse-primary":"#6d3bd7",
-"secondary-fixed-dim":"#4cd7f6",
-"surface-bright":"#353946",
-"inverse-on-surface":"#2c303d",
-"surface-dim":"#0f131f",
-"primary-container":"#a078ff",
-"on-surface-variant":"#cbc3d7"
+"outline-variant":"#494454","on-tertiary":"#002e6a","on-primary":"#3c0091",
+"on-primary-fixed":"#23005c","surface-container-low":"#171b28",
+"on-secondary":"#003640","inverse-surface":"#dfe2f3","background":"#0f131f",
+"on-primary-container":"#340080","on-background":"#dfe2f3",
+"surface-container-highest":"#313442","on-secondary-container":"#00424e",
+"on-tertiary-fixed":"#001a42","on-primary-fixed-variant":"#5516be",
+"tertiary-fixed":"#d8e2ff","surface-container":"#1b1f2c",
+"tertiary-fixed-dim":"#adc6ff","tertiary":"#adc6ff","outline":"#958ea0",
+"secondary-container":"#03b5d3","error-container":"#93000a",
+"surface-variant":"#313442","surface-container-high":"#262a37",
+"on-surface":"#dfe2f3","on-error-container":"#ffdad6",
+"surface-container-lowest":"#0a0e1a","surface":"#0f131f",
+"primary":"#d0bcff","on-error":"#690005","secondary-fixed":"#acedff",
+"on-secondary-fixed-variant":"#004e5c","secondary":"#4cd7f6",
+"surface-tint":"#d0bcff","error":"#ffb4ab","tertiary-container":"#4d8eff",
+"on-secondary-fixed":"#001f26","primary-fixed":"#e9ddff",
+"on-tertiary-container":"#00285d","on-tertiary-fixed-variant":"#004395",
+"primary-fixed-dim":"#d0bcff","inverse-primary":"#6d3bd7",
+"secondary-fixed-dim":"#4cd7f6","surface-bright":"#353946",
+"inverse-on-surface":"#2c303d","surface-dim":"#0f131f",
+"primary-container":"#a078ff","on-surface-variant":"#cbc3d7"
 },
-borderRadius:{
-DEFAULT:"1rem",
-lg:"2rem",
-xl:"3rem",
-full:"9999px"
-},
-spacing:{
-"space-sm":"0.5rem",
-"space-md":"1rem",
-"space-lg":"1.5rem",
-"margin-desktop":"3rem",
-"margin":"1rem",
-"margin-tablet":"2rem",
-"gutter":"1rem",
-"gutter-desktop":"1.5rem",
-"space-xs":"0.25rem",
-"space-xl":"2.5rem"
-},
-fontFamily:{
-"headline-md":["Plus Jakarta Sans"],
-"headline-xl":["Plus Jakarta Sans"],
-"body-md":["Plus Jakarta Sans"],
-"title-sm":["Plus Jakarta Sans"],
-"display-hero-mobile":["Plus Jakarta Sans"],
-"display-hero":["Plus Jakarta Sans"],
-"body-sm":["Plus Jakarta Sans"],
-"body-lg":["Plus Jakarta Sans"],
-"label-caps":["Plus Jakarta Sans"],
-"stat-counter":["Plus Jakarta Sans"],
-"headline-xl-mobile":["Plus Jakarta Sans"]
-},
-fontSize:{
-"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],
-"headline-xl":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"700"}],
-"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],
-"title-sm":["16px",{lineHeight:"24px",letterSpacing:"0em",fontWeight:"600"}],
-"display-hero-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.025em",fontWeight:"800"}],
-"display-hero":["48px",{lineHeight:"56px",letterSpacing:"-0.03em",fontWeight:"800"}],
-"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"400"}],
-"body-lg":["16px",{lineHeight:"24px",letterSpacing:"0em",fontWeight:"400"}],
-"label-caps":["11px",{lineHeight:"14px",letterSpacing:"0.08em",fontWeight:"700"}],
-"stat-counter":["24px",{lineHeight:"28px",letterSpacing:"-0.02em",fontWeight:"800"}],
-"headline-xl-mobile":["26px",{lineHeight:"34px",letterSpacing:"-0.02em",fontWeight:"700"}]
-}
-}
-}
-};
+borderRadius:{DEFAULT:"1rem",lg:"2rem",xl:"3rem",full:"9999px"},
+fontFamily:{"headline-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"]}
+}}};
 </script>
 </head>
 
-<body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen">
+<body class="bg-surface text-on-surface">
 
-<header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-<div class="h-16 px-space-md flex items-center justify-between gap-space-sm">
-<div class="flex items-center gap-space-sm min-w-0">
-<img alt="QuizVerse Logo" class="h-10 w-auto object-contain flex-shrink-0" src="quizverse-logo.png"/>
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-lg">
+<div class="h-16 px-4 flex items-center justify-between gap-2">
+<div class="flex items-center gap-2 min-w-0">
+<img alt="QuizVerse Logo" class="h-10 w-auto object-contain" src="quizverse-logo.png"/>
 <div class="flex flex-col truncate">
-<span class="font-title-sm text-title-sm text-on-surface truncate leading-none">QuizVerse</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Home</span>
+<span class="font-bold text-base">QuizVerse</span>
+<span class="text-xs text-on-surface-variant">Home</span>
 </div>
 </div>
-<div class="flex items-center gap-space-sm flex-shrink-0">
-<div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high/90">
-<div class="flex items-center text-secondary">
-<span class="material-symbols-outlined text-[18px]">local_fire_department</span>
-<span class="font-label-caps text-label-caps ml-0.5 text-secondary">7</span>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-2 px-3 py-2 rounded-full bg-surface-container-high text-xs font-bold">
+<span class="text-secondary">🔥 7</span><span class="text-primary" id="header-xp">0 XP</span>
 </div>
-<div class="w-1 h-1 rounded-full bg-outline-variant"></div>
-<div class="flex items-center text-primary">
-<span class="material-symbols-outlined text-[16px]">bolt</span>
-<span class="font-label-caps text-label-caps ml-0.5 text-primary">2.4K</span>
-</div>
-</div>
-<button class="relative p-0.5 rounded-full shadow-[0_0_12px_rgba(208,188,255,0.45)]">
-<img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd9zFnairxTtchgUIC3-L4YxHz8ziZpTcbAnIQ3pkBpzv_CEqiXqOq_W6w8p1EhOHEhLvOTPa8mUWaVPXnnKyKeTwrbXsS1mnpaoF2xbVOZW-2QNmJxq_nAy0GCau5zU_5ucQaUov6nODOVxIOP5sL-RGeTtm5z3ScnS3uLcsfhbiErzn2i4uV1rbQd2bvTP9uSoAVzmVSlAgSAoiEuxMdo5QeCrI1Z3ku7BVPm48"/>
+<button id="profile-button" class="rounded-full shadow-lg" aria-label="Open profile">
+<img id="header-avatar" alt="Profile" class="w-9 h-9 rounded-full object-cover bg-surface-container-high" src="quizverse-logo.png"/>
 </button>
 </div>
 </div>
 </header>
 
-<main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface">
-<div class="flex flex-col w-full px-space-md gap-space-lg">
+<main class="w-full pt-20 pb-24">
+<div class="px-4 flex flex-col gap-6">
 
-<section class="relative w-full pt-space-md flex flex-col gap-space-md overflow-hidden">
-<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-72 bg-gradient-to-b from-primary-container/25 via-secondary/15 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
-<div class="self-start inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container-high shadow-[0_0_16px_rgba(208,188,255,0.25)]">
-<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-<span class="font-label-caps text-label-caps text-secondary tracking-widest flex items-center gap-1">
-<span class="material-symbols-outlined text-[13px]">bolt</span>
-SEASON 4 LIVE
-</span>
-<span class="text-outline text-body-sm">•</span>
-<span class="font-label-caps text-label-caps text-on-surface-variant">150K+ PLAYING</span>
-</div>
-
-<div class="flex flex-col gap-space-xs">
-<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">
-Challenge Your Mind.<br/>
-<span class="bg-gradient-to-r from-secondary via-primary to-primary-container bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(76,215,246,0.35)]">Discover More.</span>
-</h1>
-<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-Compete in fast-paced live trivia, crack daily brain puzzles, and climb global leaderboards in real time.
-</p>
-</div>
-
-<div class="flex flex-col gap-space-sm pt-space-xs">
-<button class="relative group w-full py-3.5 px-space-lg rounded-2xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary text-surface-container-lowest font-title-sm text-title-sm flex items-center justify-center gap-space-sm shadow-[0_0_24px_rgba(160,120,255,0.4)] active:scale-[0.98] transition-transform">
-<span class="material-symbols-outlined">sports_esports</span>
-<span class="tracking-wide">Start Playing</span>
-<span class="material-symbols-outlined">arrow_forward</span>
-</button>
-<button class="w-full py-3.5 px-space-lg rounded-2xl bg-surface-container-high text-on-surface font-title-sm text-title-sm flex items-center justify-center gap-space-sm shadow-md">
-<span class="material-symbols-outlined text-secondary">swords</span>
-<span>Quick Match (1v1)</span>
-</button>
-</div>
-
-<div class="flex items-center gap-space-sm py-1">
-<div class="flex -space-x-2 overflow-hidden">
-<img class="h-6 w-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4HOzEXgEXZ16PTVqDmCJKT6LOxvZu01DWCHTdmTcbp0awRC8UYjVdVg93-qpNuhqKoExFdVQvy-ZwE3-brNcsmzrfmQD7wFuHa8kkV2w-zvPTh69514-z69cHviy3KlParrbBsNbedKpykXMFG3JJ5yW1-jgU8VlPKXsUzcfeBs0MWSiTE3gjVenpKzBWdc6yjpi8wqaCOzSmfq8Mji_KNhzI6NFAUCRXIwBbzD8"/>
-<img class="h-6 w-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh7qMBvysA_nLsMZubOqgxIFaZumh5lKLNsSX5WUwE5d9UxpFHfoYagB2K6drBIOperxBBzBNt8JIpU_qnV8kCnyKJzv2gJSTOhL6slmLm1I7zGmQbtDajU_mqomjOkGKk-saJYsVr_rvxSuwHBeXcYJmy8nToNnZ1PIKUdoKjU_E6pEeGJZhxlqvL1JTXjjSAYTaAWDdidDUPAiv5WaE4d3szHm6FUgW5g6aQ2Pc"/>
-<img class="h-6 w-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNlR9uMzLxyD9Kcm-EUoEbsH49irjHlvjkE-YzFenAt6Q-DfoWh0JIMhdGAFNivBM87T7pbc_byk5UBW637No-aHsjhwzQpDTI-mwdBaowJUJQadw-fzu92ur6k008wfHbhmyla6VNxX11TI1Us6XB0gDIQiJoVX6a9sWWSNhCG2RsHEpdvM6E1JO3SSJm7k3nEQ-c6G3R1b6oE6LINILv4Ut501BCst-0rQCCxEo"/>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
-<span class="font-title-sm text-secondary">24,891</span> minds competing right now
-</p>
-</div>
-</section>
-
-<section class="relative w-full rounded-3xl bg-surface-container-low p-space-md shadow-xl overflow-hidden">
-<div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-secondary via-primary to-secondary"></div>
-<div class="absolute -right-10 -bottom-10 w-44 h-44 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
-<div class="flex items-center justify-between gap-space-sm pb-space-sm">
-<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-highest">
-<span class="material-symbols-outlined text-primary">psychology</span>
-<span class="font-label-caps text-primary uppercase">Daily Brain Quest</span>
-</div>
-<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-secondary">
-<span class="material-symbols-outlined">timer</span>
-<span class="font-label-caps tracking-wider" id="daily-timer">04:32:18</span>
-</div>
-</div>
-<div class="flex flex-col gap-1 my-space-xs">
-<h2 class="font-headline-md text-on-surface">Quantum Math Matrix &amp; Logic Sprint</h2>
-<p class="font-body-sm text-on-surface-variant">10 Questions • 60s per round • Unlock "Logic Wizard" Badge</p>
-</div>
-<div class="my-space-sm p-space-sm rounded-2xl bg-surface-container flex flex-col gap-space-xs">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-1.5 text-secondary">
-<span class="material-symbols-outlined">local_fire_department</span>
-<span class="font-label-caps tracking-wider">3X STREAK BONUS ACTIVE</span>
-</div>
-<span class="font-label-caps text-primary">+500 XP</span>
-</div>
-<div class="flex items-center gap-space-xs pt-1">
-<span class="font-body-sm text-on-surface-variant">Loot:</span>
-<span class="px-2 py-0.5 rounded-lg bg-surface-container-highest text-on-surface text-sm">🏆 Trophy</span>
-<span class="px-2 py-0.5 rounded-lg bg-surface-container-highest text-on-surface text-sm">💎 150</span>
-<span class="px-2 py-0.5 rounded-lg bg-surface-container-highest text-on-surface text-sm">🎁 Mystery Box</span>
-</div>
-</div>
-<button class="w-full py-3 rounded-2xl bg-gradient-to-r from-secondary-container to-tertiary-container text-surface-container-lowest font-title-sm flex items-center justify-center gap-2">
-<span class="material-symbols-outlined">play_circle</span>
-Play Daily Challenge
-</button>
-</section>
-
-<section class="flex flex-col gap-space-sm">
-<div class="flex items-center justify-between">
-<div>
-<span class="font-label-caps text-secondary uppercase tracking-widest">Select Arena</span>
-<h2 class="font-headline-md text-on-surface">Explore Categories</h2>
-</div>
-<a class="font-label-caps text-primary" href="#">SEE ALL ›</a>
-</div>
-
-<div class="grid grid-cols-2 gap-space-sm">
-<div class="rounded-2xl p-space-md bg-surface-container-low flex flex-col gap-3">
-<span class="text-primary text-2xl">🎬</span>
-<strong>Pop Culture</strong><span class="text-body-sm text-on-surface-variant">Cinema &amp; Fandom</span>
-</div>
-<div class="rounded-2xl p-space-md bg-surface-container-low flex flex-col gap-3">
-<span class="text-secondary text-2xl">🔬</span>
-<strong>Quantum Tech</strong><span class="text-body-sm text-on-surface-variant">Cosmos &amp; AI</span>
-</div>
-<div class="rounded-2xl p-space-md bg-surface-container-low flex flex-col gap-3">
-<span class="text-tertiary text-2xl">📚</span>
-<strong>History &amp; Myth</strong><span class="text-body-sm text-on-surface-variant">Legends &amp; Relics</span>
-</div>
-<div class="rounded-2xl p-space-md bg-surface-container-low flex flex-col gap-3">
-<span class="text-primary text-2xl">♾️</span>
-<strong>Zodiac &amp; Ego</strong><span class="text-body-sm text-on-surface-variant">Self Discovery</span>
-</div>
-<div class="rounded-2xl p-space-md bg-surface-container-low flex flex-col gap-3">
-<span class="text-secondary text-2xl">⚡</span>
-<strong>Reflex Labs</strong><span class="text-body-sm text-on-surface-variant">Speed Synapses</span>
-</div>
-<div class="rounded-2xl p-space-md bg-surface-container-low flex flex-col gap-3">
-<span class="text-tertiary text-2xl">🎧</span>
-<strong>Music Beats</strong><span class="text-body-sm text-on-surface-variant">Drops &amp; Lyrics</span>
-</div>
-</div>
-</section>
-
-<section class="flex flex-col gap-space-sm">
-<div class="flex items-center justify-between">
-<div>
-<span class="font-label-caps text-primary uppercase tracking-widest">Trending Arena</span>
-<h2 class="font-headline-md text-on-surface">Popular Quizzes</h2>
-</div>
-<span class="font-label-caps text-secondary">↗ HOT</span>
-</div>
-
-<div class="rounded-2xl bg-surface-container p-space-md flex flex-col gap-space-sm">
-<div class="flex gap-space-sm">
-<img class="w-20 h-20 rounded-xl object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRTovmUyBT2SmWcsoUCSKFEgS9tfQA4Uoy33bYQOw-r9JxnX8e3rFWFoZF-1cDKkDNGXOIKrgIYgJiP-6yWN5A4DKqQTpeQvG9KTnpT2aMDNYDzMOgKfRiXaPa21wY4lsoWdWf_3gWbrVKqhtAu05twxCBvf80_6zs7LdHtmzrlgC1AMS8GYq-CnUvk1Ptn0kEh_mnGN5BkxaC4LyUCsDMjMiBAs69snIWyNjnmCs"/>
-<div class="flex flex-col justify-between flex-1 min-w-0">
-<div class="flex gap-2"><span class="text-primary text-xs">Personality</span><span class="text-secondary text-xs">Medium</span></div>
-<strong>Which Sci-Fi Cyberpunk Hero Are You?</strong>
-<span class="text-body-sm text-on-surface-variant">⭐ 4.9 • 42.8k plays • +250 XP</span>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-body-sm text-on-surface-variant">Community Avg <strong class="text-secondary">74%</strong></span>
-<button class="px-4 py-2 rounded-xl bg-surface-container-high text-secondary">▶ Play</button>
-</div>
-</div>
-
-<div class="rounded-2xl bg-surface-container p-space-md flex flex-col gap-space-sm">
-<div class="flex gap-space-sm">
-<img class="w-20 h-20 rounded-xl object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnADjKXtJ-wl1ZxkNI-sVUwLtpmkbY_D8KhjOkBSJB1FCssDPsrU58DPDdJwM-Ub4syJNNUPKCQp6bMl6WQkmIRqPu1in17cyCnVBq1PQVttjMU_fAL9oqX2YmJMUmbXR-8EYiuTokccR6V44vViPuF9dy5GkRy0-oCEO_VMnMYHnDbI4p728RgLRz2jkJ4Ezb-TfxbAilEc-7yg5jIACS1KQX2y71SxmHeQUrPEQ"/>
-<div class="flex flex-col justify-between flex-1 min-w-0">
-<div class="flex gap-2"><span class="text-secondary text-xs">Trivia Blitz</span><span class="text-error text-xs">Hard</span></div>
-<strong>World Geography Speed Run: Flags</strong>
-<span class="text-body-sm text-on-surface-variant">⭐ 4.8 • 89.2k plays • +320 XP</span>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-body-sm text-on-surface-variant">Community Avg <strong class="text-error">42%</strong></span>
-<button class="px-4 py-2 rounded-xl bg-surface-container-high text-secondary">▶ Play</button>
-</div>
-</div>
-
-<div class="rounded-2xl bg-surface-container p-space-md flex flex-col gap-space-sm">
-<div class="flex gap-space-sm">
-<img class="w-20 h-20 rounded-xl object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyz_NdOeKUWa9CYUmaq15cI6-XBx0XvxFsE2HF5-E1S-R_tx0AYZBBkvkNSTxUjlJkFmRejlnd0KObqP_RdspPzV_kn9UCbsLIAyciEIJxlW3K_hM68ZLbEEpLISYKJpTbGrDwJbuXUWUSeSF9qjoVsFOnmrNyStVZ3812KXbZd4GFkau2t2Hu0U9up6lM3sMFEXJwYFameaC6sdm_3ZDTgUa5lugQXe3rgpsrqTk"/>
-<div class="flex flex-col justify-between flex-1 min-w-0">
-<div class="flex gap-2"><span class="text-tertiary text-xs">Brain Gym</span><span class="text-primary text-xs">Insane</span></div>
-<strong>Neuro-Pattern Memory Test</strong>
-<span class="text-body-sm text-on-surface-variant">⭐ 4.9 • 31.4k plays • +400 XP</span>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-body-sm text-on-surface-variant">Community Avg <strong class="text-primary">58%</strong></span>
-<button class="px-4 py-2 rounded-xl bg-surface-container-high text-secondary">▶ Play</button>
-</div>
-</div>
-</section>
-
-<section class="flex flex-col gap-space-sm">
-<div>
-<span class="font-label-caps text-secondary uppercase tracking-widest">Global Standings</span>
-<h2 class="font-headline-md text-on-surface">Top Minds Today</h2>
-</div>
-<div class="grid grid-cols-3 gap-space-xs pt-space-md items-end">
-<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-low">
-<span class="text-outline">#2</span>
-<div class="w-12 h-12 rounded-full bg-outline flex items-center justify-center">🥈</div>
-<strong>NovaBrain</strong>
-<span class="text-secondary text-xs">46,110 XP</span>
-</div>
-<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container -translate-y-2">
-<span class="text-primary">#1 CHAMP</span>
-<div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center">👑</div>
-<strong>CyberAlex</strong>
-<span class="text-primary text-xs">48,920 XP</span>
-</div>
-<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-low">
-<span class="text-outline">#3</span>
-<div class="w-12 h-12 rounded-full bg-outline flex items-center justify-center">🥉</div>
-<strong>VortexQueen</strong>
-<span class="text-secondary text-xs">43,850 XP</span>
-</div>
-</div>
-<div class="rounded-2xl bg-surface-container-high p-space-md flex items-center justify-between">
-<div>
-<strong>Your Standing</strong>
-<p class="text-body-sm text-on-surface-variant">18,450 XP • 250 XP to Diamond Tier</p>
-</div>
-<strong class="text-primary text-2xl">142</strong>
-</div>
-</section>
-
-<section class="grid grid-cols-3 gap-space-xs py-space-sm">
-<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-lowest">
-<span class="text-secondary text-xl">✓</span>
-<strong class="text-xl">10M+</strong>
-<span class="text-xs text-center text-on-surface-variant">Quizzes Solved</span>
-</div>
-<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-lowest">
-<span class="text-primary text-xl">☺</span>
-<strong class="text-xl">99.4%</strong>
-<span class="text-xs text-center text-on-surface-variant">Mind Satisfaction</span>
-</div>
-<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-lowest">
-<span class="text-tertiary text-xl">💰</span>
-<strong class="text-xl">$50K</strong>
-<span class="text-xs text-center text-on-surface-variant">Monthly Prizes</span>
-</div>
-</section>
-
-<footer class="w-full flex flex-col gap-space-lg pt-space-md pb-space-lg">
-<div class="rounded-3xl bg-gradient-to-br from-surface-container-high to-surface-container p-space-md flex flex-col gap-space-sm">
-<div class="flex items-center gap-space-sm">
-<div class="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined text-[28px]">install_mobile</span>
+<section class="relative pt-3 flex flex-col gap-4 overflow-hidden">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="self-start inline-flex items-center gap-2 px-3 py-2 rounded-full bg-surface-container-high text-secondary text-xs font-bold tracking-widest">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span> ⚡ SEASON 4 LIVE
 </div>
 <div>
-<h3 class="font-title-sm text-on-surface">Play Anywhere, Anytime</h3>
-<p class="font-body-sm text-on-surface-variant">Install the QuizVerse Mobile PWA for offline practice</p>
+<h1 class="text-3xl font-extrabold leading-tight">Challenge Your Mind.<br/><span class="bg-gradient-to-r from-secondary via-primary to-purple-400 bg-clip-text text-transparent">Discover More.</span></h1>
+<p class="text-sm text-on-surface-variant leading-relaxed mt-3">Compete in fast-paced live trivia, crack daily brain puzzles, and climb global leaderboards.</p>
 </div>
+<div class="flex flex-col gap-3">
+<button data-action="play" class="w-full py-4 rounded-2xl bg-gradient-to-r from-primary-container via-purple-500 to-secondary text-surface-container-lowest font-extrabold">🎮 Start Playing →</button>
+<button data-action="quick" class="w-full py-4 rounded-2xl bg-surface-container-high font-bold">⚔️ Quick Match (1v1)</button>
 </div>
-<button class="w-full py-2.5 rounded-xl bg-surface-container-highest text-secondary">↓ Get QuizVerse Mobile App</button>
-</div>
+<p class="text-sm text-on-surface-variant">👥 <strong class="text-secondary">24,891</strong> minds competing right now</p>
+</section>
 
-<div class="grid grid-cols-2 gap-space-md px-space-xs">
-<div class="flex flex-col gap-2">
-<span class="font-label-caps text-secondary uppercase">Play &amp; Compete</span>
-<a class="text-body-sm text-on-surface-variant" href="#">Daily Puzzles</a>
-<a class="text-body-sm text-on-surface-variant" href="#">Trivia Blitz</a>
-<a class="text-body-sm text-on-surface-variant" href="#">1v1 Arenas</a>
-<a class="text-body-sm text-on-surface-variant" href="#">Global Tournaments</a>
+<section class="rounded-3xl bg-surface-container-low p-4 shadow-xl">
+<div class="flex items-center justify-between gap-2">
+<span class="text-primary text-xs font-bold">🧠 DAILY BRAIN QUEST</span>
+<span id="daily-timer" class="text-secondary text-xs font-bold">04:32:18</span>
 </div>
-<div class="flex flex-col gap-2">
-<span class="font-label-caps text-primary uppercase">Community</span>
-<a class="text-body-sm text-on-surface-variant" href="#">Discord Server</a>
-<a class="text-body-sm text-on-surface-variant" href="#">Leaderboard Rules</a>
-<a class="text-body-sm text-on-surface-variant" href="#">Privacy &amp; Terms</a>
-<a class="text-body-sm text-on-surface-variant" href="#">Help Center</a>
+<h2 class="text-lg font-bold mt-3">Quantum Math Matrix &amp; Logic Sprint</h2>
+<p class="text-xs text-on-surface-variant mt-1">10 Questions • 60s per round • Logic challenge</p>
+<div class="my-4 p-3 rounded-2xl bg-surface-container">
+<div class="flex justify-between text-xs font-bold"><span class="text-secondary">🔥 STREAK BONUS</span><span class="text-primary">+500 XP</span></div>
+<p class="text-xs mt-3">Loot: 🏆 Trophy · 💎 150 · 🎁 Mystery Box</p>
 </div>
-</div>
+<button data-action="daily" class="w-full py-3 rounded-2xl bg-gradient-to-r from-secondary-container to-tertiary-container text-surface-container-lowest font-bold">▶ Play Daily Challenge</button>
+</section>
 
-<div class="flex flex-col items-center text-center pt-space-sm border-t border-outline-variant/10">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">stars</span>
-<span class="font-title-sm text-on-surface tracking-wider font-extrabold">QUIZVERSE</span>
+<section>
+<div class="mb-3"><span class="text-secondary text-xs font-bold tracking-widest">SELECT ARENA</span><h2 class="text-xl font-bold">Explore Categories</h2></div>
+<div class="grid grid-cols-2 gap-3">
+<button data-category="Pop Culture" class="text-left rounded-2xl p-4 bg-surface-container-low flex flex-col gap-3">🎬<strong>Pop Culture</strong><span class="text-xs text-on-surface-variant">Cinema &amp; Fandom</span></button>
+<button data-category="Quantum Tech" class="text-left rounded-2xl p-4 bg-surface-container-low flex flex-col gap-3">🔬<strong>Quantum Tech</strong><span class="text-xs text-on-surface-variant">Cosmos &amp; AI</span></button>
+<button data-category="History & Myth" class="text-left rounded-2xl p-4 bg-surface-container-low flex flex-col gap-3">📚<strong>History &amp; Myth</strong><span class="text-xs text-on-surface-variant">Legends &amp; Relics</span></button>
+<button data-category="Zodiac & Ego" class="text-left rounded-2xl p-4 bg-surface-container-low flex flex-col gap-3">♾️<strong>Zodiac &amp; Ego</strong><span class="text-xs text-on-surface-variant">Self Discovery</span></button>
+<button data-category="Reflex Labs" class="text-left rounded-2xl p-4 bg-surface-container-low flex flex-col gap-3">⚡<strong>Reflex Labs</strong><span class="text-xs text-on-surface-variant">Speed Synapses</span></button>
+<button data-category="Music Beats" class="text-left rounded-2xl p-4 bg-surface-container-low flex flex-col gap-3">🎧<strong>Music Beats</strong><span class="text-xs text-on-surface-variant">Drops &amp; Lyrics</span></button>
 </div>
-<p class="text-body-sm text-on-surface-variant">The ultimate gamified competitive knowledge platform.</p>
-<span class="text-[11px] text-outline mt-1">© 2026 QuizVerse. All rights reserved.</span>
+</section>
+
+<section class="flex flex-col gap-3">
+<div><span class="text-primary text-xs font-bold tracking-widest">TRENDING ARENA</span><h2 class="text-xl font-bold">Popular Quizzes</h2></div>
+<div class="rounded-2xl bg-surface-container p-4">
+<div class="flex gap-3"><div class="w-20 h-20 rounded-xl bg-purple-900 flex items-center justify-center text-3xl">🚀</div><div class="flex-1"><span class="text-xs text-primary">Personality · Medium</span><strong class="block mt-1">Which Sci-Fi Cyberpunk Hero Are You?</strong><span class="text-xs text-on-surface-variant">⭐ 4.9 • +250 XP</span></div></div>
+<div class="flex justify-between items-center mt-3"><span class="text-xs text-on-surface-variant">Community Avg <strong class="text-secondary">74%</strong></span><button data-action="play" class="px-4 py-2 rounded-xl bg-surface-container-high text-secondary">▶ Play</button></div>
 </div>
+<div class="rounded-2xl bg-surface-container p-4">
+<div class="flex gap-3"><div class="w-20 h-20 rounded-xl bg-blue-900 flex items-center justify-center text-3xl">🌍</div><div class="flex-1"><span class="text-xs text-secondary">Trivia Blitz · Hard</span><strong class="block mt-1">World Geography Speed Run: Flags</strong><span class="text-xs text-on-surface-variant">⭐ 4.8 • +320 XP</span></div></div>
+<div class="flex justify-between items-center mt-3"><span class="text-xs text-on-surface-variant">Community Avg <strong class="text-error">42%</strong></span><button data-action="play" class="px-4 py-2 rounded-xl bg-surface-container-high text-secondary">▶ Play</button></div>
+</div>
+<div class="rounded-2xl bg-surface-container p-4">
+<div class="flex gap-3"><div class="w-20 h-20 rounded-xl bg-indigo-900 flex items-center justify-center text-3xl">🧩</div><div class="flex-1"><span class="text-xs text-tertiary">Brain Gym · Insane</span><strong class="block mt-1">Neuro-Pattern Memory Test</strong><span class="text-xs text-on-surface-variant">⭐ 4.9 • +400 XP</span></div></div>
+<div class="flex justify-between items-center mt-3"><span class="text-xs text-on-surface-variant">Community Avg <strong class="text-primary">58%</strong></span><button data-action="play" class="px-4 py-2 rounded-xl bg-surface-container-high text-secondary">▶ Play</button></div>
+</div>
+</section>
+
+<section>
+<span class="text-secondary text-xs font-bold tracking-widest">GLOBAL STANDINGS</span>
+<h2 class="text-xl font-bold">Top Minds Today</h2>
+<div class="grid grid-cols-3 gap-2 mt-4 text-center">
+<div class="p-3 rounded-2xl bg-surface-container-low"><span class="text-xs">#2</span><div class="text-3xl my-2">🥈</div><strong class="text-xs">NovaBrain</strong><p class="text-secondary text-xs">46,110 XP</p></div>
+<div class="p-3 rounded-2xl bg-surface-container -translate-y-2"><span class="text-primary text-xs">#1 CHAMP</span><div class="text-3xl my-2">👑</div><strong class="text-xs">CyberAlex</strong><p class="text-primary text-xs">48,920 XP</p></div>
+<div class="p-3 rounded-2xl bg-surface-container-low"><span class="text-xs">#3</span><div class="text-3xl my-2">🥉</div><strong class="text-xs">VortexQueen</strong><p class="text-secondary text-xs">43,850 XP</p></div>
+</div>
+<div class="rounded-2xl bg-surface-container-high p-4 mt-3 flex justify-between"><div><strong>Your Standing</strong><p class="text-xs text-on-surface-variant">Your current rank</p></div><strong class="text-primary text-2xl" id="your-rank">—</strong></div>
+</section>
+
+<section class="grid grid-cols-3 gap-2 text-center">
+<div class="p-3 rounded-2xl bg-surface-container-lowest"><span class="text-secondary text-xl">✓</span><strong class="block text-xl">10M+</strong><span class="text-xs text-on-surface-variant">Quizzes Solved</span></div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest"><span class="text-primary text-xl">☺</span><strong class="block text-xl">99.4%</strong><span class="text-xs text-on-surface-variant">Mind Satisfaction</span></div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest"><span class="text-tertiary text-xl">💰</span><strong class="block text-xl">—</strong><span class="text-xs text-on-surface-variant">Rewards</span></div>
+</section>
+
+<!-- Role-based panel: hidden unless a matching role is returned by Supabase -->
+<section id="role-panel" class="role-panel rounded-3xl bg-surface-container-low p-4 border border-primary/30">
+<div class="flex items-center justify-between">
+<div><span class="text-primary text-xs font-bold tracking-widest">STAFF AREA</span><h2 class="text-xl font-bold" id="role-title">Dashboard</h2></div>
+<span id="role-badge" class="px-3 py-1 rounded-full bg-surface-container-high text-secondary text-xs font-bold"></span>
+</div>
+<p class="text-sm text-on-surface-variant mt-2" id="role-description"></p>
+<div class="grid grid-cols-2 gap-2 mt-4" id="role-actions"></div>
+</section>
+
+<footer class="pt-4 pb-6 flex flex-col gap-5">
+<div class="rounded-3xl bg-gradient-to-br from-surface-container-high to-surface-container p-4">
+<div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-secondary/20 flex items-center justify-center text-2xl">📲</div><div><h3 class="font-bold">Play Anywhere, Anytime</h3><p class="text-xs text-on-surface-variant">Install QuizVerse on your device</p></div></div>
+<button id="install-button" class="w-full mt-4 py-3 rounded-xl bg-surface-container-highest text-secondary font-bold">↓ Get QuizVerse Mobile App</button>
+</div>
+<div class="grid grid-cols-2 gap-4 text-xs text-on-surface-variant">
+<div class="flex flex-col gap-2"><strong class="text-secondary">PLAY &amp; COMPETE</strong><a href="#" data-action="daily">Daily Puzzles</a><a href="#" data-action="quick">1v1 Arenas</a><a href="#" data-action="play">Trivia Blitz</a></div>
+<div class="flex flex-col gap-2"><strong class="text-primary">COMMUNITY</strong><a href="#">Leaderboard Rules</a><a href="#">Privacy &amp; Terms</a><a href="mailto:support@quizversehq.vercel.app">Help Center</a></div>
+</div>
+<div class="text-center border-t border-outline-variant/20 pt-4"><strong class="tracking-widest">✦ QUIZVERSE</strong><p class="text-xs text-on-surface-variant mt-1">The ultimate gamified knowledge platform.</p><span class="text-[11px] text-outline">© 2026 QuizVerse. All rights reserved.</span></div>
 </footer>
-
 </div>
-
-<script>
-(function initDailyTimer() {
-let secondsLeft = 4 * 3600 + 32 * 60 + 18;
-const timerEl = document.getElementById('daily-timer');
-if (!timerEl) return;
-
-setInterval(() => {
-if (secondsLeft > 0) {
-secondsLeft--;
-const hrs = String(Math.floor(secondsLeft / 3600)).padStart(2, '0');
-const mins = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, '0');
-const secs = String(secondsLeft % 60).padStart(2, '0');
-timerEl.textContent = `${hrs}:${mins}:${secs}`;
-}
-}, 1000);
-})();
-</script>
 </main>
 
-<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.6)]">
-<div class="h-16 px-space-xs flex items-center justify-around">
-<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-secondary" href="#">
-<span class="material-symbols-outlined text-[22px]">sports_esports</span>
-<span class="font-label-caps mt-0.5">Home</span>
-</a>
-<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
-<span class="material-symbols-outlined text-[22px]">quiz</span>
-<span class="font-label-caps mt-0.5">Quizzes</span>
-</a>
-<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
-<span class="material-symbols-outlined text-[22px]">psychology</span>
-<span class="font-label-caps mt-0.5">Brain Games</span>
-</a>
-<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
-<span class="material-symbols-outlined text-[22px]">leaderboard</span>
-<span class="font-label-caps mt-0.5">Ranks</span>
-</a>
-<a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
-<span class="material-symbols-outlined text-[22px]">account_circle</span>
-<span class="font-label-caps mt-0.5">Profile</span>
-</a>
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-xl shadow-lg">
+<div class="h-16 flex items-center justify-around text-xs">
+<a class="flex flex-col items-center text-secondary" href="#"><span class="text-xl">🎮</span>Home</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#" data-action="play"><span class="text-xl">❓</span>Quizzes</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#" data-action="daily"><span class="text-xl">🧠</span>Brain Games</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#role-panel"><span class="text-xl">🏆</span>Ranks</a>
+<a class="flex flex-col items-center text-on-surface-variant" href="#" id="nav-profile"><span class="text-xl">👤</span>Profile</a>
 </div>
 </nav>
 
+<!-- Authentication modal -->
+<div class="modal-backdrop" id="auth-modal">
+<div class="modal-card">
+<div class="flex items-center justify-between">
+<div><p class="text-secondary text-xs font-bold tracking-widest">WELCOME TO</p><h2 class="text-2xl font-extrabold">QuizVerse</h2></div>
+<button class="text-2xl text-on-surface-variant" data-close="auth-modal" aria-label="Close">×</button>
+</div>
+<div class="flex gap-2 mt-5">
+<button id="login-tab" class="flex-1 py-2 rounded-xl bg-primary text-surface-container-lowest font-bold">Log In</button>
+<button id="signup-tab" class="flex-1 py-2 rounded-xl bg-surface-container-high text-on-surface font-bold">Sign Up</button>
+</div>
+<form id="auth-form">
+<label class="auth-label">Email address</label>
+<input class="auth-input" id="auth-email" type="email" autocomplete="email" placeholder="you@example.com" required/>
+<label class="auth-label">Password</label>
+<input class="auth-input" id="auth-password" type="password" autocomplete="current-password" placeholder="At least 6 characters" minlength="6" required/>
+<div id="username-wrap" style="display:none">
+<label class="auth-label">Username</label>
+<input class="auth-input" id="auth-username" type="text" maxlength="24" placeholder="Choose a username"/>
+</div>
+<button class="auth-btn primary-btn" id="auth-submit" type="submit">Log In</button>
+</form>
+<button id="google-button" class="auth-btn secondary-btn">Continue with Google</button>
+<button id="forgot-button" class="block w-full text-center text-sm text-primary mt-4">Forgot password?</button>
+<p id="auth-message" class="auth-message" role="status"></p>
+<p class="text-xs text-on-surface-variant mt-4">By continuing, you agree to use QuizVerse fairly and follow its rules.</p>
+</div>
+</div>
+
+<!-- Profile modal -->
+<div class="modal-backdrop" id="profile-modal">
+<div class="modal-card">
+<div class="flex items-center justify-between"><h2 class="text-xl font-bold">Your Profile</h2><button class="text-2xl" data-close="profile-modal">×</button></div>
+<div class="text-center py-5">
+<img id="profile-avatar" src="quizverse-logo.png" class="w-16 h-16 rounded-full mx-auto object-cover"/>
+<h3 id="profile-name" class="font-bold text-lg mt-3">Guest</h3>
+<p id="profile-email" class="text-xs text-on-surface-variant mt-1">Not signed in</p>
+<p id="profile-xp" class="text-secondary font-bold mt-3">0 XP</p>
+<p id="profile-role" class="text-xs text-primary mt-1">Member</p>
+</div>
+<button id="profile-auth-button" class="auth-btn primary-btn">Log In / Sign Up</button>
+<button id="logout-button" class="auth-btn secondary-btn" style="display:none">Log Out</button>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* QuizVerse Supabase connection */
+const SUPABASE_URL = "https://rlqhgrxdpbdlgmtpchep.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_yoJxXLVvbCYUB8NwvOldUQ_q_TkaEd8";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+let authMode = "login";
+let currentUser = null;
+let currentProfile = null;
+let currentRole = "member";
+let installPrompt = null;
+
+const $ = id => document.getElementById(id);
+function showModal(id){$(id).classList.add("show")}
+function hideModal(id){$(id).classList.remove("show")}
+function message(text,isError=false){
+  $("auth-message").textContent=text;
+  $("auth-message").classList.toggle("auth-error",isError);
+}
+function setAuthMode(mode){
+  authMode=mode;
+  $("login-tab").className=mode==="login"?"flex-1 py-2 rounded-xl bg-primary text-surface-container-lowest font-bold":"flex-1 py-2 rounded-xl bg-surface-container-high text-on-surface font-bold";
+  $("signup-tab").className=mode==="signup"?"flex-1 py-2 rounded-xl bg-primary text-surface-container-lowest font-bold":"flex-1 py-2 rounded-xl bg-surface-container-high text-on-surface font-bold";
+  $("username-wrap").style.display=mode==="signup"?"block":"none";
+  $("auth-username").required=mode==="signup";
+  $("auth-password").autocomplete=mode==="signup"?"new-password":"current-password";
+  $("auth-submit").textContent=mode==="signup"?"Create Account":"Log In";
+  $("forgot-button").style.display=mode==="login"?"block":"none";
+  message("");
+}
+$("login-tab").addEventListener("click",()=>setAuthMode("login"));
+$("signup-tab").addEventListener("click",()=>setAuthMode("signup"));
+
+function openAuth(mode="login"){
+  setAuthMode(mode);
+  showModal("auth-modal");
+}
+function openProfile(){
+  if(currentUser){
+    $("profile-name").textContent=currentProfile?.username || currentUser.email?.split("@")[0] || "Player";
+    $("profile-email").textContent=currentUser.email || "";
+    $("profile-xp").textContent=(currentProfile?.xp ?? 0)+" XP";
+    $("profile-role").textContent=currentRole.toUpperCase();
+    $("profile-auth-button").style.display="none";
+    $("logout-button").style.display="block";
+  }else{
+    $("profile-name").textContent="Guest";
+    $("profile-email").textContent="Not signed in";
+    $("profile-xp").textContent="0 XP";
+    $("profile-role").textContent="Member";
+    $("profile-auth-button").style.display="block";
+    $("logout-button").style.display="none";
+  }
+  showModal("profile-modal");
+}
+
+async function loadPlayerData(user){
+  currentUser=user;
+  currentProfile=null;
+  currentRole="member";
+
+  const {data:profile,error:profileError}=await db
+    .from("profiles")
+    .select("username,xp")
+    .eq("id",user.id)
+    .maybeSingle();
+
+  if(!profileError && profile) currentProfile=profile;
+
+  /* Role table is expected to have user_id and role columns.
+     If the role query fails, the account stays a regular Member. */
+  const {data:roleRow,error:roleError}=await db
+    .from("user_roles")
+    .select("role")
+    .eq("user_id",user.id)
+    .maybeSingle();
+
+  if(!roleError && roleRow?.role){
+    const allowed=["owner","admin","support"];
+    if(allowed.includes(String(roleRow.role).toLowerCase())){
+      currentRole=String(roleRow.role).toLowerCase();
+    }else if(String(roleRow.role).toLowerCase()==="admin"){
+      currentRole="admin";
+    }
+  }
+
+  /* Compatibility with an existing is_admin() database function.
+     This can identify admins, but never grants Owner or Support. */
+  if(currentRole==="member"){
+    const {data:isAdmin}=await db.rpc("is_admin");
+    if(isAdmin===true) currentRole="admin";
+  }
+
+  updateSignedInUI();
+}
+
+function updateSignedInUI(){
+  const signedIn=!!currentUser;
+  const username=currentProfile?.username || currentUser?.email?.split("@")[0] || "Player";
+  const xp=Number(currentProfile?.xp || 0);
+
+  $("header-xp").textContent=xp.toLocaleString()+" XP";
+  $("profile-name").textContent=username;
+  $("profile-email").textContent=currentUser?.email || "";
+  $("profile-xp").textContent=xp.toLocaleString()+" XP";
+  $("profile-role").textContent=currentRole.toUpperCase();
+  $("profile-auth-button").style.display=signedIn?"none":"block";
+  $("logout-button").style.display=signedIn?"block":"none";
+
+  const panel=$("role-panel");
+  if(["owner","admin","support"].includes(currentRole)){
+    panel.classList.add("visible");
+    $("role-title").textContent=currentRole==="owner"?"Owner Dashboard":currentRole==="admin"?"Admin Panel":"Support Panel";
+    $("role-badge").textContent=currentRole.toUpperCase();
+    $("role-description").textContent=
+      currentRole==="owner"?"Owner access. Manage staff roles, platform settings, rewards, and administration.":
+      currentRole==="admin"?"Manage quizzes, review activity, and help keep QuizVerse running.":
+      "Review support requests and help players with account issues.";
+    const actions=$("role-actions");
+    actions.innerHTML="";
+    const items=currentRole==="owner"
+      ?["Manage Users","Manage Quizzes","Manage Roles","Withdrawal Requests","Platform Settings"]
+      :currentRole==="admin"
+      ?["Manage Quizzes","Manage Users","Review Reports"]
+      :["Support Requests","Review Reports"];
+    items.forEach(item=>{
+      const button=document.createElement("button");
+      button.className="rounded-xl bg-surface-container-high p-3 text-sm font-bold text-secondary";
+      button.textContent=item;
+      button.addEventListener("click",()=>alert(item+" will be connected to its secure admin feature in the next build."));
+      actions.appendChild(button);
+    });
+  }else{
+    panel.classList.remove("visible");
+  }
+}
+
+$("auth-form").addEventListener("submit",async event=>{
+  event.preventDefault();
+  const email=$("auth-email").value.trim();
+  const password=$("auth-password").value;
+  const username=$("auth-username").value.trim();
+  $("auth-submit").disabled=true;
+  $("auth-submit").textContent="Please wait...";
+  message("");
+
+  try{
+    if(authMode==="signup"){
+      const {data,error}=await db.auth.signUp({
+        email,password,
+        options:{
+          data:{username},
+          emailRedirectTo:window.location.origin
+        }
+      });
+      if(error) throw error;
+      if(data.session){
+        message("Account created successfully!");
+        await loadPlayerData(data.user);
+        setTimeout(()=>hideModal("auth-modal"),900);
+      }else{
+        message("Account created! Check your email and tap the confirmation link before logging in.");
+      }
+    }else{
+      const {data,error}=await db.auth.signInWithPassword({email,password});
+      if(error) throw error;
+      await loadPlayerData(data.user);
+      message("Login successful!");
+      setTimeout(()=>hideModal("auth-modal"),700);
+    }
+  }catch(error){
+    message(error.message || "Something went wrong. Please try again.",true);
+  }finally{
+    $("auth-submit").disabled=false;
+    $("auth-submit").textContent=authMode==="signup"?"Create Account":"Log In";
+  }
+});
+
+$("google-button").addEventListener("click",async()=>{
+  message("Connecting to Google...");
+  const {error}=await db.auth.signInWithOAuth({
+    provider:"google",
+    options:{redirectTo:window.location.origin}
+  });
+  if(error) message(error.message,true);
+});
+
+$("forgot-button").addEventListener("click",async()=>{
+  const email=$("auth-email").value.trim();
+  if(!email){message("Enter your email address first.",true);return;}
+  const {error}=await db.auth.resetPasswordForEmail(email,{
+    redirectTo:window.location.origin
+  });
+  if(error) message(error.message,true);
+  else message("If the account exists, a password reset link has been sent to your email.");
+});
+
+$("logout-button").addEventListener("click",async()=>{
+  const {error}=await db.auth.signOut();
+  if(error){alert(error.message);return;}
+  currentUser=null;currentProfile=null;currentRole="member";
+  $("role-panel").classList.remove("visible");
+  updateSignedInUI();
+  hideModal("profile-modal");
+});
+
+$("profile-button").addEventListener("click",openProfile);
+$("nav-profile").addEventListener("click",event=>{event.preventDefault();openProfile()});
+$("profile-auth-button").addEventListener("click",()=>{hideModal("profile-modal");openAuth("login")});
+
+document.querySelectorAll("[data-close]").forEach(button=>{
+  button.addEventListener("click",()=>hideModal(button.dataset.close));
+});
+document.querySelectorAll(".modal-backdrop").forEach(backdrop=>{
+  backdrop.addEventListener("click",event=>{
+    if(event.target===backdrop) backdrop.classList.remove("show");
+  });
+});
+
+document.addEventListener("click",event=>{
+  const button=event.target.closest("[data-action]");
+  if(!button)return;
+  event.preventDefault();
+  const action=button.dataset.action;
+  if(!currentUser){
+    openAuth("login");
+    message("Log in or create an account to continue.");
+    return;
+  }
+  if(action==="play"||action==="quick"||action==="daily"){
+    alert("Your account is signed in. The quiz gameplay system will be connected to your Supabase quiz tables in the next build.");
+  }
+});
+
+document.querySelectorAll("[data-category]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    if(!currentUser){openAuth("login");return;}
+    alert("Category selected: "+button.dataset.category+". Category quizzes will be connected in the quiz build.");
+  });
+});
+
+db.auth.onAuthStateChange(async(event,session)=>{
+  if(session?.user){
+    await loadPlayerData(session.user);
+  }else{
+    currentUser=null;currentProfile=null;currentRole="member";
+    updateSignedInUI();
+    $("role-panel").classList.remove("visible");
+  }
+});
+
+/* Restore existing session */
+(async()=>{
+  const {data:{session}}=await db.auth.getSession();
+  if(session?.user) await loadPlayerData(session.user);
+  else updateSignedInUI();
+})();
+
+/* Daily countdown */
+(function(){
+  let secondsLeft=4*3600+32*60+18;
+  const timer=$("daily-timer");
+  setInterval(()=>{
+    if(secondsLeft>0)secondsLeft--;
+    const h=String(Math.floor(secondsLeft/3600)).padStart(2,"0");
+    const m=String(Math.floor((secondsLeft%3600)/60)).padStart(2,"0");
+    const s=String(secondsLeft%60).padStart(2,"0");
+    timer.textContent=`${h}:${m}:${s}`;
+  },1000);
+})();
+
+/* PWA install prompt */
+window.addEventListener("beforeinstallprompt",event=>{
+  event.preventDefault();
+  installPrompt=event;
+});
+$("install-button").addEventListener("click",async()=>{
+  if(installPrompt){
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    installPrompt=null;
+  }else{
+    alert("On iPad: open Safari's Share menu, then tap Add to Home Screen.");
+  }
+});
+</script>
 </body>
 </html>
