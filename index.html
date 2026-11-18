@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0f131f;color:#dfe2f3;}body{overscroll-behavior:none;font-family:'Plus Jakarta Sans',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "outline-variant": "#494454", "on-tertiary": "#002e6a", "on-primary": "#3c0091", "on-primary-fixed": "#23005c", "surface-container-low": "#171b28", "on-secondary": "#003640", "inverse-surface": "#dfe2f3", "background": "#0f131f", "on-primary-container": "#340080", "on-background": "#dfe2f3", "surface-container-highest": "#313442", "on-secondary-container": "#00424e", "on-tertiary-fixed": "#001a42", "on-primary-fixed-variant": "#5516be", "tertiary-fixed": "#d8e2ff", "surface-container": "#1b1f2c", "tertiary-fixed-dim": "#adc6ff", "tertiary": "#adc6ff", "outline": "#958ea0", "secondary-container": "#03b5d3", "error-container": "#93000a", "surface-variant": "#313442", "surface-container-high": "#262a37", "on-surface": "#dfe2f3", "on-error-container": "#ffdad6", "surface-container-lowest": "#0a0e1a", "surface": "#0f131f", "primary": "#d0bcff", "on-error": "#690005", "secondary-fixed": "#acedff", "on-secondary-fixed-variant": "#004e5c", "secondary": "#4cd7f6", "surface-tint": "#d0bcff", "error": "#ffb4ab", "tertiary-container": "#4d8eff", "on-secondary-fixed": "#001f26", "primary-fixed": "#e9ddff", "on-tertiary-container": "#00285d", "on-tertiary-fixed-variant": "#004395", "primary-fixed-dim": "#d0bcff", "inverse-primary": "#6d3bd7", "secondary-fixed-dim": "#4cd7f6", "surface-bright": "#353946", "inverse-on-surface": "#2c303d", "surface-dim": "#0f131f", "primary-container": "#a078ff", "on-surface-variant": "#cbc3d7" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-md": "1rem", "space-lg": "1.5rem", "margin-desktop": "3rem", "margin": "1rem", "margin-tablet": "2rem", "gutter": "1rem", "gutter-desktop": "1.5rem", "space-xs": "0.25rem", "space-xl": "2.5rem" }, "fontFamily": { "headline-md": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "title-sm": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-caps": ["Plus Jakarta Sans"], "stat-counter": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"] }, "fontSize": { "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}], "title-sm": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600"}], "display-hero-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800"}], "display-hero": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.03em", "fontWeight": "800"}], "body-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400"}], "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}], "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700"}], "stat-counter": ["24px", {"lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "800"}], "headline-xl-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]"><div class="h-16 px-space-md flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="QuizVerse Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/ALJJyrDw78UlxUjLZDQaYGxSZwi2HLVctB3Wr6IZhn7q8MYGpNXxVtVJ0XCb0l9p_1o2gL0na6EHNtkMLcrXtcszyH7wM0wh8OmzKTQbL5fnnfRg-bd90cX-s5b-7dSIllJ_An3uW4JCcbbClrXekpXEMmCpoe09TBOg-L3NA80MalFR9B4cZ2fyib_xPDdGMj3HUwpconnL78orHEMLdfKKXZlcWDFTqpqtnoheKCHXlBbh"/><div class="flex flex-col truncate"><span class="font-title-sm text-title-sm text-on-surface truncate leading-none">QuizVerse</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate">Home</span></div></div><div class="flex items-center gap-space-sm flex-shrink-0"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]"><div class="flex items-center text-secondary"><span class="material-symbols-outlined text-[18px]">local_fire_department</span><span class="font-label-caps text-label-caps ml-0.5 text-secondary">7</span></div><div class="w-1 h-1 rounded-full bg-outline-variant"></div><div class="flex items-center text-primary"><span class="material-symbols-outlined text-[16px]">bolt</span><span class="font-label-caps text-label-caps ml-0.5 text-primary">2.4K</span></div></div><button class="relative p-0.5 rounded-full shadow-[0_0_12px_rgba(208,188,255,0.45)]"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd9zFnairxTtchgUIC3-L4YxHz8ziZpTcbAnIQ3pkBpzv_CEqiXqOq_W6w8p1EhOHEhLvOTPa8mUWaVPXnnKyKeTwrbXsS1mnpaoF2xbVOZW-2QNmJxq_nAy0GCau5zU_5ucQaUov6nODOVxIOP5sL-RGeTtm5z3ScnS3uLcsfhbiErzn2i4uV1rbQd2bvTP9uSoAVzmVSlAgSAoiEuxMdo5QeCrI1Z3ku7BVPm48"/></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full px-space-md gap-space-lg">
+<!-- SECTION 1: HERO & REALTIME PULSE -->
+<section class="relative w-full pt-space-md flex flex-col gap-space-md overflow-hidden">
+<!-- Ambient Radial Glow Behind Hero -->
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-72 h-72 bg-gradient-to-b from-primary-container/25 via-secondary/15 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
+<!-- Live Season Indicator Pill -->
+<div class="self-start inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container-high shadow-[0_0_16px_rgba(208,188,255,0.25)]">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+<span class="font-label-caps text-label-caps text-secondary tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+        SEASON 4 LIVE
+      </span>
+<span class="text-outline text-body-sm">•</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">150K+ PLAYING</span>
+</div>
+<!-- Hero Title -->
+<div class="flex flex-col gap-space-xs">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">
+        Challenge Your Mind. <br/>
+<span class="bg-gradient-to-r from-secondary via-primary to-primary-container bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(76,215,246,0.35)]">
+          Discover More.
+        </span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Compete in fast-paced live trivia, crack daily brain puzzles, and climb global leaderboards in real time.
+      </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Primary CTA with Neon aura -->
+<button class="relative group w-full py-3.5 px-space-lg rounded-2xl bg-gradient-to-r from-primary-container via-inverse-primary to-secondary text-surface-container-lowest font-title-sm text-title-sm flex items-center justify-center gap-space-sm shadow-[0_0_24px_rgba(160,120,255,0.4)] active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+<span class="tracking-wide">Start Playing</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<!-- Secondary 1v1 CTA -->
+<button class="w-full py-3.5 px-space-lg rounded-2xl bg-surface-container-high text-on-surface font-title-sm text-title-sm flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-all hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[20px] text-secondary">swords</span>
+<span>Quick Match (1v1)</span>
+</button>
+</div>
+<!-- Live Player Ticker -->
+<div class="flex items-center gap-space-sm py-1">
+<div class="flex -space-x-2 overflow-hidden">
+<img class="inline-block h-6 w-6 rounded-full object-cover shadow-[0_0_6px_rgba(0,0,0,0.5)]" data-alt="Futuristic neon holographic gamer avatar with glowing violet cyber eye visor in high contrast studio style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4HOzEXgEXZ16PTVqDmCJKT6LOxvZu01DWCHTdmTcbp0awRC8UYjVdVg93-qpNuhqKoExFdVQvy-ZwE3-brNcsmzrfmQD7wFuHa8kkV2w-zvPTh69514-z69cHviy3KlParrbBsNbedKpykXMFG3JJ5yW1-jgU8VlPKXsUzcfeBs0MWSiTE3gjVenpKzBWdc6yjpi8wqaCOzSmfq8Mji_KNhzI6NFAUCRXIwBbzD8"/>
+<img class="inline-block h-6 w-6 rounded-full object-cover shadow-[0_0_6px_rgba(0,0,0,0.5)]" data-alt="Vibrant cyberpunk trivia player avatar with cyan hair streaks and dark tech headphones on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh7qMBvysA_nLsMZubOqgxIFaZumh5lKLNsSX5WUwE5d9UxpFHfoYagB2K6drBIOperxBBzBNt8JIpU_qnV8kCnyKJzv2gJSTOhL6slmLm1I7zGmQbtDajU_mqomjOkGKk-saJYsVr_rvxSuwHBeXcYJmy8nToNnZ1PIKUdoKjU_E6pEeGJZhxlqvL1JTXjjSAYTaAWDdidDUPAiv5WaE4d3szHm6FUgW5g6aQ2Pc"/>
+<img class="inline-block h-6 w-6 rounded-full object-cover shadow-[0_0_6px_rgba(0,0,0,0.5)]" data-alt="Chibi anime style robot scholar avatar wearing a golden VR headset smiling playfully on dark purple background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNlR9uMzLxyD9Kcm-EUoEbsH49irjHlvjkE-YzFenAt6Q-DfoWh0JIMhdGAFNivBM87T7pbc_byk5UBW637No-aHsjhwzQpDTI-mwdBaowJUJQadw-fzu92ur6k008wfHbhmyla6VNxX11TI1Us6XB0gDIQiJoVX6a9sWWSNhCG2RsHEpdvM6E1JO3SSJm7k3nEQ-c6G3R1b6oE6LINILv4Ut501BCst-0rQCCxEo"/>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="font-title-sm text-title-sm text-secondary">24,891</span> minds competing right now
+      </p>
+</div>
+</section>
+<!-- SECTION 2: DAILY BRAIN CHALLENGE SPOTLIGHT -->
+<section class="relative w-full rounded-3xl bg-surface-container-low p-space-md shadow-xl overflow-hidden">
+<!-- Gradient Ambient Edge Line simulation -->
+<div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-secondary via-primary to-secondary"></div>
+<div class="absolute -right-10 -bottom-10 w-44 h-44 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-highest">
+<span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-caps text-label-caps text-primary uppercase">Daily Brain Quest</span>
+</div>
+<!-- Countdown timer -->
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span class="font-label-caps text-label-caps tracking-wider" id="daily-timer">04:32:18</span>
+</div>
+</div>
+<!-- Spotlight Content -->
+<div class="flex flex-col gap-1 my-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">Quantum Math Matrix &amp; Logic Sprint</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">10 Questions • 60s per round • Unlock "Logic Wizard" Badge</p>
+</div>
+<!-- Multiplier Ribbon & Loot micro-pill preview -->
+<div class="my-space-sm p-space-sm rounded-2xl bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-caps text-label-caps tracking-wider text-secondary">3X STREAK BONUS ACTIVE</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary">+500 XP</span>
+</div>
+<!-- Today's rewards list -->
+<div class="flex items-center gap-space-xs pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Loot:</span>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px] text-tertiary">military_tech</span> Trophy
+        </div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">diamond</span> 150
+        </div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-highest text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">redeem</span> Mystery Box
+        </div>
+</div>
+</div>
+<button class="w-full py-3 rounded-2xl bg-gradient-to-r from-secondary-container to-tertiary-container text-surface-container-lowest font-title-sm text-title-sm flex items-center justify-center gap-2 shadow-[0_0_18px_rgba(3,181,211,0.35)] active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span>Play Daily Challenge</span>
+</button>
+</section>
+<!-- SECTION 3: FEATURED CATEGORIES -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Select Arena</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Explore Categories</h2>
+</div>
+<a class="font-label-caps text-label-caps text-primary hover:text-primary-fixed transition-colors flex items-center gap-0.5" href="#">
+        SEE ALL
+        <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+<!-- 2-Column Responsive Card Grid -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Category 1: Pop Culture -->
+<div class="group relative rounded-2xl p-space-md bg-surface-container-low flex flex-col justify-between overflow-hidden shadow-md active:scale-95 transition-transform">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-primary/20 blur-xl"></div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shadow-[0_0_12px_rgba(208,188,255,0.3)]">
+<span class="material-symbols-outlined text-[22px]">movie</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">4.2K</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary transition-colors">Pop Culture</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cinema &amp; Fandom</span>
+</div>
+</div>
+<!-- Category 2: Science & Tech -->
+<div class="group relative rounded-2xl p-space-md bg-surface-container-low flex flex-col justify-between overflow-hidden shadow-md active:scale-95 transition-transform">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-secondary/20 blur-xl"></div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary shadow-[0_0_12px_rgba(76,215,246,0.3)]">
+<span class="material-symbols-outlined text-[22px]">science</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">3.8K</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-secondary transition-colors">Quantum Tech</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cosmos &amp; AI</span>
+</div>
+</div>
+<!-- Category 3: History & Mythos -->
+<div class="group relative rounded-2xl p-space-md bg-surface-container-low flex flex-col justify-between overflow-hidden shadow-md active:scale-95 transition-transform">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-tertiary/20 blur-xl"></div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-tertiary shadow-[0_0_12px_rgba(173,198,255,0.3)]">
+<span class="material-symbols-outlined text-[22px]">auto_stories</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">2.9K</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-tertiary transition-colors">History &amp; Myth</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Legends &amp; Relics</span>
+</div>
+</div>
+<!-- Category 4: Personality & Zodiac -->
+<div class="group relative rounded-2xl p-space-md bg-surface-container-low flex flex-col justify-between overflow-hidden shadow-md active:scale-95 transition-transform">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-primary-container/20 blur-xl"></div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-fixed-dim shadow-[0_0_12px_rgba(208,188,255,0.3)]">
+<span class="material-symbols-outlined text-[22px]">all_inclusive</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">5.1K</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary-fixed transition-colors">Zodiac &amp; Ego</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Self Discovery</span>
+</div>
+</div>
+<!-- Category 5: Memory & Reflexes -->
+<div class="group relative rounded-2xl p-space-md bg-surface-container-low flex flex-col justify-between overflow-hidden shadow-md active:scale-95 transition-transform">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-secondary-fixed/20 blur-xl"></div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary-fixed shadow-[0_0_12px_rgba(172,237,255,0.3)]">
+<span class="material-symbols-outlined text-[22px]">speed</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">1.9K</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-secondary-fixed transition-colors">Reflex Labs</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Speed Synapses</span>
+</div>
+</div>
+<!-- Category 6: Music & Beats -->
+<div class="group relative rounded-2xl p-space-md bg-surface-container-low flex flex-col justify-between overflow-hidden shadow-md active:scale-95 transition-transform">
+<div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-tertiary-container/25 blur-xl"></div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-tertiary-fixed-dim shadow-[0_0_12px_rgba(173,198,255,0.3)]">
+<span class="material-symbols-outlined text-[22px]">headphones</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">3.4K</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-tertiary transition-colors">Music Beats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Drops &amp; Lyrics</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: POPULAR QUIZZES -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Trending Arena</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Popular Quizzes</h2>
+</div>
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-label-caps text-label-caps">HOT</span>
+</div>
+</div>
+<!-- Quiz Card 1: Cyberpunk Hero -->
+<div class="w-full rounded-2xl bg-surface-container p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex gap-space-sm">
+<div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Cyberpunk high-tech portrait with neon violet highlights and electric cyan glowing cybernetic skull visor in dark sci-fi metropolis style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRTovmUyBT2SmWcsoUCSKFEgS9tfQA4Uoy33bYQOw-r9JxnX8e3rFWFoZF-1cDKkDNGXOIKrgIYgJiP-6yWN5A4DKqQTpeQvG9KTnpT2aMDNYDzMOgKfRiXaPa21wY4lsoWdWf_3gWbrVKqhtAu05twxCBvf80_6zs7LdHtmzrlgC1AMS8GYq-CnUvk1Ptn0kEh_mnGN5BkxaC4LyUCsDMjMiBAs69snIWyNjnmCs"/>
+<span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-surface-container-lowest/80 text-[10px] font-bold text-on-surface">8m</span>
+</div>
+<div class="flex flex-col justify-between flex-1 min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps">Personality</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-caps text-label-caps">Medium</span>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Which Sci-Fi Cyberpunk Hero Are You?</h3>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-0.5 text-secondary">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.9
+            </span>
+<span>42.8k plays</span>
+<span class="text-primary font-label-caps text-label-caps ml-auto">+250 XP</span>
+</div>
+</div>
+</div>
+<!-- Completion bar & action -->
+<div class="pt-space-xs flex items-center justify-between gap-space-md">
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex justify-between text-[11px] font-semibold text-on-surface-variant">
+<span>Community Avg</span>
+<span class="text-secondary">74%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 74%"></div>
+</div>
+</div>
+<button class="px-4 py-2 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-secondary font-title-sm text-title-sm flex items-center gap-1 active:scale-95 transition-transform flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Play</span>
+</button>
+</div>
+</div>
+<!-- Quiz Card 2: World Geography Speed Run -->
+<div class="w-full rounded-2xl bg-surface-container p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex gap-space-sm">
+<div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Holographic neon illuminated globe surrounded by digital coordinate lines and floating flags in dark blue tech space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnADjKXtJ-wl1ZxkNI-sVUwLtpmkbY_D8KhjOkBSJB1FCssDPsrU58DPDdJwM-Ub4syJNNUPKCQp6bMl6WQkmIRqPu1in17cyCnVBq1PQVttjMU_fAL9oqX2YmJMUmbXR-8EYiuTokccR6V44vViPuF9dy5GkRy0-oCEO_VMnMYHnDbI4p728RgLRz2jkJ4Ezb-TfxbAilEc-7yg5jIACS1KQX2y71SxmHeQUrPEQ"/>
+<span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-surface-container-lowest/80 text-[10px] font-bold text-on-surface">5m</span>
+</div>
+<div class="flex flex-col justify-between flex-1 min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-caps text-label-caps">Trivia Blitz</span>
+<span class="px-2 py-0.5 rounded-full bg-error/20 text-error font-label-caps text-label-caps">Hard</span>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">World Geography Speed Run: Flags</h3>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-0.5 text-secondary">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.8
+            </span>
+<span>89.2k plays</span>
+<span class="text-primary font-label-caps text-label-caps ml-auto">+320 XP</span>
+</div>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between gap-space-md">
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex justify-between text-[11px] font-semibold text-on-surface-variant">
+<span>Community Avg</span>
+<span class="text-error">42%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 42%"></div>
+</div>
+</div>
+<button class="px-4 py-2 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-secondary font-title-sm text-title-sm flex items-center gap-1 active:scale-95 transition-transform flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Play</span>
+</button>
+</div>
+</div>
+<!-- Quiz Card 3: Neuro-Pattern Memory Test -->
+<div class="w-full rounded-2xl bg-surface-container p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex gap-space-sm">
+<div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Abstract glowing geometric neural synapses pulsating with purple and blue bioluminescent lights in dark void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyz_NdOeKUWa9CYUmaq15cI6-XBx0XvxFsE2HF5-E1S-R_tx0AYZBBkvkNSTxUjlJkFmRejlnd0KObqP_RdspPzV_kn9UCbsLIAyciEIJxlW3K_hM68ZLbEEpLISYKJpTbGrDwJbuXUWUSeSF9qjoVsFOnmrNyStVZ3812KXbZd4GFkau2t2Hu0U9up6lM3sMFEXJwYFameaC6sdm_3ZDTgUa5lugQXe3rgpsrqTk"/>
+<span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-surface-container-lowest/80 text-[10px] font-bold text-on-surface">3m</span>
+</div>
+<div class="flex flex-col justify-between flex-1 min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-tertiary/15 text-tertiary font-label-caps text-label-caps">Brain Gym</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary-fixed-dim font-label-caps text-label-caps">Insane</span>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Neuro-Pattern Memory Test</h3>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-0.5 text-secondary">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.9
+            </span>
+<span>31.4k plays</span>
+<span class="text-primary font-label-caps text-label-caps ml-auto">+400 XP</span>
+</div>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between gap-space-md">
+<div class="flex flex-col flex-1 gap-1">
+<div class="flex justify-between text-[11px] font-semibold text-on-surface-variant">
+<span>Community Avg</span>
+<span class="text-primary">58%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 58%"></div>
+</div>
+</div>
+<button class="px-4 py-2 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-secondary font-title-sm text-title-sm flex items-center gap-1 active:scale-95 transition-transform flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Play</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION 5: LIVE LEADERBOARD PREVIEW & PODIUM -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Global Standings</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Top Minds Today</h2>
+</div>
+<a class="font-label-caps text-label-caps text-secondary hover:underline flex items-center gap-0.5" href="#">
+        FULL RANKS
+        <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+<!-- Podium Mini Showcase -->
+<div class="grid grid-cols-3 gap-space-xs pt-space-md items-end">
+<!-- #2 Rank (Silver) -->
+<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-low shadow-sm">
+<span class="font-label-caps text-label-caps text-outline mb-1">#2</span>
+<div class="relative w-12 h-12 rounded-full overflow-hidden p-0.5 bg-outline">
+<img class="w-full h-full rounded-full object-cover" data-alt="Futuristic cyber woman portrait avatar with sleek silver visor and neon blue reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-dIwuJcp2vSgMAvXp8AiiVLNV9luHEjXyYJTVCL6Ec7oNGRfjag2XKtBJYAXyl-aRFwUo0-tCj73is9PUnsHWnKt7SYTrqLPDNFLbsiFxkDnMwZHokf7bmLFNYBoXrxk_vd-9073yCnMlF0WtqYkcPCqwrxSAbqGgTzzPR0iU_uQbYudvi9HHZsuz7ff8Qf_GnbxPxY3LRkeL1w3ZmEGP6RFMepNhLAIXE8_Wba8"/>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface truncate w-full text-center mt-1">NovaBrain</span>
+<span class="font-label-caps text-label-caps text-secondary">46,110 XP</span>
+</div>
+<!-- #1 Rank (Gold - Elevated) -->
+<div class="relative flex flex-col items-center p-space-sm rounded-2xl bg-surface-container shadow-[0_0_20px_rgba(208,188,255,0.25)] -translate-y-2">
+<div class="absolute -top-3 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-md">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">crown</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary mt-1 mb-1 font-bold">#1 CHAMP</span>
+<div class="relative w-14 h-14 rounded-full overflow-hidden p-0.5 bg-primary shadow-[0_0_12px_rgba(208,188,255,0.4)]">
+<img class="w-full h-full rounded-full object-cover" data-alt="Elite esports quiz champion boy avatar wearing high tech glowing gold crown headset on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdrAjxdb7iN_bg5_1N16emaTH8sX9_0epEYh3hrmwJ8PAapAt1pKsLefGzX6pSAmnshjuIhoI2XsOk6jjhbXqCj5ZmPgu_2-1Qeom6YLiVAwhlQt5Rqhy1ZXiFQfvSuJG5gS6dBMtDYXiMcW0Au23hy1m_BXDlwwEibciQmMm4HGKiJNLZabrJVPwdXbnA65t7XrL5Mo_X_JdjO350EfhpJZgNI2Fxp2YJc5kyYRo"/>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface truncate w-full text-center mt-1 font-bold">CyberAlex</span>
+<span class="font-label-caps text-label-caps text-primary font-bold">48,920 XP</span>
+</div>
+<!-- #3 Rank (Bronze) -->
+<div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-low shadow-sm">
+<span class="font-label-caps text-label-caps text-outline mb-1">#3</span>
+<div class="relative w-12 h-12 rounded-full overflow-hidden p-0.5 bg-outline-variant">
+<img class="w-full h-full rounded-full object-cover" data-alt="Intense gamer girl avatar with purple braids and cybernetic neon markings on cheeks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG9drHuYDwnyiCMM-cPtol3tF6VgEyAIDd6jmIIiLhBVDgdLZZzeeiyVMO21EZQL6T88mWFFtq-ecrpUolVX7-xPtwE5k_Ja_HoKpREv6ST2iwgiR2NlhKAM1k2t4k6iOaEpUj99g8akhZN4F4S4bgfwiX6HKdZSM6nRuHnvu3a7eaqizqSk_SkUVB1e2uEt8-qltDON_J_e47KKkumfYlZRuc4W9Wt479nFwbvWw"/>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface truncate w-full text-center mt-1">VortexQueen</span>
+<span class="font-label-caps text-label-caps text-secondary">43,850 XP</span>
+</div>
+</div>
+<!-- User Standing Comparison Card -->
+<div class="w-full rounded-2xl bg-surface-container-high p-space-md flex items-center justify-between gap-space-sm shadow-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-stat-counter text-stat-counter">
+          142
+        </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface">Your Standing</span>
+<span class="px-1.5 py-0.2 rounded bg-secondary-container/20 text-secondary text-[10px] font-bold">TOP 5%</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">18,450 XP • 250 XP to Diamond Tier</span>
+</div>
+</div>
+<button class="p-2 rounded-xl bg-surface-container-highest text-on-surface active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">north_east</span>
+</button>
+</div>
+</section>
+<!-- SECTION 6: PLATFORM GAMING STATS BANNER -->
+<section class="grid grid-cols-3 gap-space-xs py-space-sm">
+<div class="flex flex-col items-center text-center p-space-sm rounded-2xl bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-secondary mb-1">checklist</span>
+<span class="font-stat-counter text-stat-counter text-on-surface">10M+</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Quizzes Solved</span>
+</div>
+<div class="flex flex-col items-center text-center p-space-sm rounded-2xl bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-primary mb-1">sentiment_very_satisfied</span>
+<span class="font-stat-counter text-stat-counter text-on-surface">99.4%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Mind Satisfaction</span>
+</div>
+<div class="flex flex-col items-center text-center p-space-sm rounded-2xl bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-tertiary mb-1">payments</span>
+<span class="font-stat-counter text-stat-counter text-on-surface">$50K</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Monthly Prizes</span>
+</div>
+</section>
+<!-- SECTION 7: APP PROMO / COMPREHENSIVE FOOTER -->
+<footer class="w-full flex flex-col gap-space-lg pt-space-md pb-space-lg">
+<!-- PWA / Native App CTA Card -->
+<div class="relative w-full rounded-3xl bg-gradient-to-br from-surface-container-high to-surface-container p-space-md flex flex-col gap-space-sm overflow-hidden shadow-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]">install_mobile</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-title-sm text-title-sm text-on-surface">Play Anywhere, Anytime</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Install the QuizVerse Mobile PWA for zero lag and offline practice</p>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-surface-container-highest text-secondary font-title-sm text-title-sm flex items-center justify-center gap-2 active:scale-98 transition-transform">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Get QuizVerse Mobile App</span>
+</button>
+</div>
+<!-- Quick Navigation Matrix -->
+<div class="grid grid-cols-2 gap-space-md px-space-xs">
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider">Play &amp; Compete</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Daily Puzzles</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Trivia Blitz</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">1v1 Arenas</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Global Tournaments</a>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">Community</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Discord Server</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Leaderboard Rules</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Privacy &amp; Terms</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">Help Center</a>
+</div>
+</div>
+<!-- Brand Signature & Rights -->
+<div class="flex flex-col items-center justify-center gap-space-xs text-center pt-space-sm border-t border-outline-variant/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-title-sm text-title-sm text-on-surface tracking-wider font-extrabold">QUIZVERSE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+        The ultimate gamified competitive knowledge platform.
+      </p>
+<span class="text-[11px] text-outline mt-1 font-body-sm">
+        © 2025 QuizVerse Gaming Studios. All rights reserved.
+      </span>
+</div>
+</footer>
+</div>
+<script>
+  // Dynamic countdown timer micro-interaction
+  (function initDailyTimer() {
+    let secondsLeft = 4 * 3600 + 32 * 60 + 18;
+    const timerEl = document.getElementById('daily-timer');
+    if (!timerEl) return;
+
+    setInterval(() => {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        const hrs = String(Math.floor(secondsLeft / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, '0');
+        const secs = String(secondsLeft % 60).padStart(2, '0');
+        timerEl.textContent = `${hrs}:${mins}:${secs}`;
+      }
+    }, 1000);
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.6)]" data-active-classes="text-secondary drop-shadow-[0_0_10px_rgba(76,215,246,0.6)]"><div class="h-16 px-space-xs flex items-center justify-around"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] transition-colors text-secondary drop-shadow-[0_0_10px_rgba(76,215,246,0.6)]" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">sports_esports</span><span class="font-label-caps text-label-caps mt-0.5">Home</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="quizzes" href="#"><span class="material-symbols-outlined text-[22px]">quiz</span><span class="font-label-caps text-label-caps mt-0.5">Quizzes</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="brain-games" href="#"><span class="material-symbols-outlined text-[22px]">psychology</span><span class="font-label-caps text-label-caps mt-0.5">Brain Games</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="leaderboard" href="#"><span class="material-symbols-outlined text-[22px]">leaderboard</span><span class="font-label-caps text-label-caps mt-0.5">Ranks</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[22px]">account_circle</span><span class="font-label-caps text-label-caps mt-0.5">Profile</span></a></div></nav></body></html>
